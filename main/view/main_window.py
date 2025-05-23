@@ -3,6 +3,7 @@ from tkinter import ttk
 from datetime import datetime
 from view.item_tree import ItemTree
 from model import db
+from view.activity_lookup_popup import ActivityLookupPopup
 
 class MainWindow:
     def __init__(self, root, controller):
@@ -16,7 +17,7 @@ class MainWindow:
         filemenu = tk.Menu(menubar, tearoff=0)
         filemenu.add_command(label="Open Database")
         filemenu.add_command(label="Create New Database")
-        filemenu.add_command(label="Maintain Activity Lookup")
+        filemenu.add_command(label="Maintain Activity Lookup", command=self.open_activity_lookup_popup)
         filemenu.add_separator()
         filemenu.add_command(label="Exit", command=self.root.quit)
         menubar.add_cascade(label="File", menu=filemenu)
@@ -52,3 +53,6 @@ class MainWindow:
 
     def on_exit(self):
         self.root.destroy()
+
+    def open_activity_lookup_popup(self):
+        ActivityLookupPopup(self.root, db, self.controller)
